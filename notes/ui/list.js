@@ -1,3 +1,4 @@
+'use strict'
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -9,7 +10,29 @@ import {connect} from 'react-redux';
 import {observer} from 'mobx-react';
 import Toast from './toast';
 import store from './store';
+import * as Actions from '../store/action';
 //const store = new Store();
+
+
+
+import {observable} from 'mobx';
+
+const todos = observable([
+    {
+        title: 'A', completed: true
+
+    },{
+        title: 'B', completed: false
+    }
+]);
+
+const todos2 = observable(2);
+//console.log(todos2.get());
+//todos.map(item => console.log(item.title));
+
+// const map = observable(asMap({ key: "value"}));
+// map.set("key", "new value");
+// console.log(map);
 
 @observer
 class Test extends Component{
@@ -33,9 +56,25 @@ class List extends Component {
         });
         store.increment();
     }
+    componentDidMount(){
+        let {dispatch} = this.props;
+      setTimeout(function () {
+          dispatch(Actions.calculation(2000));
+      },3000)
+    }
     render() {
         const { navigate } = this.props.navigation;
-        console.log(store.tick);
+        //console.log('redux', this.props.data);
+        //console.log(store.tick);
+        //console.log(this.props);
+        //console.log('face', this.props.face);
+        fetch('http://localhost:3000/',{
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(data => data.json()).then(data => console.log(data));
+
         return (
             <View>
                 {store.newTodoList.map((list, key) => {
@@ -44,7 +83,7 @@ class List extends Component {
                     )
                 })}
                 <View style={styles.button}>
-                    <Button title="计算器" onPress={() => navigate('Calculator')}/>
+                    <Button title={`计算器${this.props.data}`} onPress={() => navigate('Calculator')}/>
                 </View>
                 <View style={styles.button}>
                     <Button title="toast" onPress={() => navigate('Toast')}/>
@@ -72,7 +111,8 @@ const styles = StyleSheet.create({
 
 function select(state) {
     return {
-        data: state.calculation
+        data: state.calculation,
+        face: state.getFaceBook
     }
 }
 export default connect(select)(List)

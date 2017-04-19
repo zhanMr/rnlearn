@@ -6,13 +6,12 @@
 
 import React, { Component } from 'react';
 import {StackNavigator} from 'react-navigation';
-import {AppRegistry,} from 'react-native';
-import ui from './ui/ui';
+import {AppRegistry} from 'react-native';
+import page from './js/page';
 
 const App = StackNavigator({
-    Home: {screen: ui.home},
-    Calculator: {screen: ui.calculator},
-    Toast: {screen: ui.toast}
+    Home: {screen: page.Home},
+    Login: {screen: page.Login}
 });
 
 export default class rnlearn extends Component {

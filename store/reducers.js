@@ -8,7 +8,19 @@ function calculation(state = {}, action){
             return 0;
     }
 }
+
+
+function getFaceBook(state = {}, action) {
+    switch(action.type){
+        case 'FaceBook':
+            return action.data;
+        default:
+            return null;
+    }
+}
+
+
 const app = combineReducers({
-    calculation
+    calculation, getFaceBook
 });
 export default app;

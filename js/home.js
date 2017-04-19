@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import {createStore} from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import reducers from '../store/reducers';
-import * as action from '../store/action';
-const store = createStore(reducers);
+import {Button} from 'react-native';
 import List from './list';
+
+const store = createStore(reducers, applyMiddleware(
+    thunkMiddleware
+));
+
 export default class Home extends Component {
     static navigationOptions = {
-        title: 'UI组件'
+        title: '首页'
     }
     render() {
-        store.dispatch(action.calculation(200));
         return (
             <Provider store={store}>
                 <List {...this.props}/>

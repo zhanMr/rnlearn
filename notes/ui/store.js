@@ -29,8 +29,8 @@ let Store = observable({
 
 //观察状态改变的函数
 autorun(function () {
-    console.log('completed %d items', Store.todoList.length);
-    console.log('title %d', Store.todoList);
+    //console.log('completed %d items', Store.todoList.length);
+    //console.log('title %d', Store.todoList);
 })
 
 export default Store;
